@@ -1,0 +1,289 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color-scheme: light;
+  }
+
+  .dark {
+    color-scheme: dark;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Subtle custom scrollbars for week grid and panels */
+.ts-scroll::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.ts-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.ts-scroll::-webkit-scrollbar-thumb {
+  background: rgba(140, 130, 120, 0.25);
+  border-radius: 9999px;
+}
+
+.dark .ts-scroll::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.22);
+}
+
+/* Light Mode exposed page-background graph-paper pattern */
+.ts-cream-grid {
+  background-color: #F6F2EC;
+  background-image:
+    linear-gradient(to right, rgba(132, 168, 210, 0.16) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(132, 168, 210, 0.16) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* Dark Mode exposed page-background graphite graph-paper pattern */
+.ts-graphite-grid {
+  background-color: #101012;
+  background-image:
+    linear-gradient(to right, rgba(41, 41, 45, 0.5) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(41, 41, 45, 0.5) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ts-transition,
+  .ts-transition *,
+  .ts-right-panel-slot,
+  .ts-btn,
+  .ts-card-interactive,
+  .ts-calendar-cell,
+  .ts-mini-day,
+  .ts-event-chip,
+  .ts-filter-row,
+  .ts-icon-btn,
+  .ts-modal-backdrop,
+  .ts-modal-panel,
+  .ts-popover-enter {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    transform: none !important;
+  }
+}
+
+/* Fluid Adaptive Workspace & Calendar Grid */
+.ts-workspace-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+@media (min-width: 768px) {
+  .ts-workspace-grid {
+    display: grid;
+    grid-template-columns: 60px minmax(0, 1fr);
+    align-items: stretch;
+    gap: 0.875rem;
+  }
+}
+
+.ts-calendar-grid {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+}
+
+@media (min-width: 1024px) {
+  .ts-calendar-grid {
+    display: grid;
+    grid-template-columns: clamp(185px, 15vw, 220px) minmax(0, 1fr) auto;
+    align-items: stretch;
+  }
+}
+
+.ts-right-panel-slot {
+  width: 0;
+  margin-left: 0;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+  transition:
+    width 250ms cubic-bezier(0.22, 1, 0.36, 1),
+    margin-left 250ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 200ms ease-out;
+}
+
+.ts-right-panel-slot[data-open='true'] {
+  width: clamp(230px, 19vw, 280px);
+  margin-left: 0.875rem;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Subtle Micro-Interactions (zero glow, zero bounce, zero layout shift) */
+.ts-btn {
+  transition:
+    background-color 180ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 180ms cubic-bezier(0.22, 1, 0.36, 1),
+    color 180ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 180ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 150ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ts-btn:hover:not(:disabled) {
+  filter: brightness(0.955);
+}
+
+.dark .ts-btn:hover:not(:disabled) {
+  filter: brightness(1.12);
+}
+
+.ts-btn:active:not(:disabled) {
+  transform: scale(0.985);
+}
+
+.ts-icon-btn {
+  transition:
+    background-color 180ms cubic-bezier(0.22, 1, 0.36, 1),
+    color 180ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 180ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 160ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ts-icon-btn:hover:not(:disabled) {
+  background-color: rgba(30, 27, 24, 0.055);
+}
+
+.dark .ts-icon-btn:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.075);
+}
+
+.ts-icon-btn:active:not(:disabled) {
+  transform: scale(0.94);
+}
+
+.ts-card-interactive {
+  transition:
+    border-color 200ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 200ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 200ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ts-card-interactive:hover {
+  border-color: rgba(30, 27, 24, 0.22) !important;
+  box-shadow:
+    0 5px 14px -5px rgba(56, 42, 28, 0.1),
+    0 1px 3px rgba(56, 42, 28, 0.05);
+  transform: translateY(-1px);
+}
+
+.dark .ts-card-interactive:hover {
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 6px 16px -6px rgba(0, 0, 0, 0.55);
+  transform: translateY(-1px);
+}
+
+.ts-calendar-cell {
+  transition: background-color 160ms ease-out;
+}
+
+.ts-calendar-cell[data-selected='false']:hover {
+  background-color: rgba(30, 27, 24, 0.028) !important;
+}
+
+.dark .ts-calendar-cell[data-selected='false']:hover {
+  background-color: rgba(255, 255, 255, 0.032) !important;
+}
+
+.ts-mini-day {
+  transition:
+    background-color 160ms ease-out,
+    border-color 160ms ease-out,
+    color 160ms ease-out;
+}
+
+.ts-mini-day[data-selected='false']:hover {
+  background-color: rgba(30, 27, 24, 0.048) !important;
+}
+
+.dark .ts-mini-day[data-selected='false']:hover {
+  background-color: rgba(255, 255, 255, 0.07) !important;
+}
+
+.ts-event-chip {
+  transition:
+    transform 170ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 170ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 170ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ts-event-chip:hover {
+  transform: scale(1.018);
+  filter: brightness(1.03);
+}
+
+.dark .ts-event-chip:hover {
+  filter: brightness(1.1);
+}
+
+.ts-filter-row {
+  transition:
+    background-color 190ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 190ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 190ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 190ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ts-filter-row:hover {
+  transform: translateX(2px);
+  filter: brightness(0.975);
+}
+
+.dark .ts-filter-row:hover {
+  filter: brightness(1.09);
+}
+
+@keyframes ts-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes ts-panel-enter {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.ts-modal-backdrop {
+  animation: ts-fade-in 200ms ease-out forwards;
+}
+
+.ts-modal-panel {
+  animation: ts-panel-enter 230ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.ts-popover-enter {
+  animation: ts-panel-enter 200ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+
